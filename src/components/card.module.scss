@@ -106,10 +106,7 @@
   width: 100%;
   @include center;
   justify-content: space-around;
-  .title {
-    font-size: 22px;
-    font-weight: bolder;
-  }
+
   .detail {
     @include center;
     flex-direction: column;
@@ -153,10 +150,12 @@
     flex-direction: column;
   }
   .icon {
-    width: 50px;
+    width: 80px;
     margin-top: 20px;
+    position: relative;
     img {
-      width: 100%;
+      width: 60%;
+      z-index: 1;
     }
     .cost {
       border: none;
@@ -167,6 +166,7 @@
   }
   .from,
   .to {
+    text-align: center;
     :first-child {
       font-size: 16px;
       font-weight: bold;
@@ -177,9 +177,8 @@
       width: 90px;
     }
     :nth-child(2) {
-      font-size: 22px;
+      font-size: 32px;
       font-weight: bolder;
-
     }
   }
 }
@@ -215,5 +214,24 @@
         width: 90px;
       }
     }
+  }
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background-color: rgb(180, 180, 180);
+  position: absolute;
+  top: 22%;
+  animation: moveDot 1s linear infinite;
+}
+
+@keyframes moveDot {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
   }
 }

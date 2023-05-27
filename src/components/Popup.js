@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./popup.module.scss";
+
 export default function Popup(props) {
   const { setTogglePopup, titlePopup } = props;
+
   return (
     <div
       className={styles["overlay"]}

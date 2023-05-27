@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import styles from "./cardslist.module.scss";
 import { instanceAxios } from "../utils/instanceAxios";
-import { useNavigate } from "react-router-dom";
+
+
 export default function CardsList() {
   const [list, setList] = useState([]);
   const [totalCards, setTotalCards] = useState();
@@ -19,19 +21,23 @@ export default function CardsList() {
       .catch((err) => {
         console.log(err);
       });
+
     if (list.length === 0) {
       get3Card();
-      // ;
       setPageTracker(pageTracker + 1);
     }
+
   }, []);
 
+
+  /**
+   * getting data based on page
+   */
   function get3Card() {
     instanceAxios
       .get(`/list?size=3&page=${pageTracker}`)
       .then((res) => {
         setPageTracker(pageTracker + 1);
-
         setList((prevList) => [...prevList, ...res.data.result]);
         setTotalCards(res.data.total);
       })
@@ -39,6 +45,8 @@ export default function CardsList() {
         console.log(err);
       });
   }
+
+
 
   function logOutHandler() {
     instanceAxios
@@ -51,11 +59,14 @@ export default function CardsList() {
         console.log(err);
       });
   }
+
+
+  
   return (
     <div className={styles["container"]}>
       <div className={styles["header"]}>
         <div className={styles["popover"]}>
-          <button className={styles["popover-button"]}>Admin</button>
+          <button className={styles["popover-button"]}>{username}</button>
           <div
             onClick={() => {
               logOutHandler();
