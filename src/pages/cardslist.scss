@@ -55,10 +55,30 @@
 
 .main {
   @include center;
-  flex-wrap: wrap;
-  align-items: baseline;
-  .item {
-    min-width: 400px;
-    margin: 20px;
+  flex-direction: column;
+
+  .list {
+    @include center;
+    flex-wrap: wrap;
+    align-items: baseline;
+    .item {
+      min-width: 400px;
+      margin: 20px;
+    }
+  }
+  .load-more {
+    width: 75%;
+    padding: 20px;
+    border: none;
+    background-color: rgb(193, 193, 193);
+
+    border-radius: 8px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      cursor:pointer;
+
+    }
   }
 }

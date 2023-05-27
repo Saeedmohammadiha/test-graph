@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import "./cardslist.scss";
 import { instanceAxios } from "../utils/instanceAxios";
+import { useNavigate } from "react-router-dom";
 export default function CardsList() {
   const [list, setList] = useState([]);
   const [totalCards, setTotalCards] = useState();
   const [username, setUsername] = useState();
-  let pageTracker = 1;
-  // totalCards/3 === pageTracker
+  const [pageTracker, setPageTracker] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     instanceAxios
@@ -20,7 +21,8 @@ export default function CardsList() {
       });
     if (list.length === 0) {
       get3Card();
-      pageTracker++;
+      // ;
+      setPageTracker(pageTracker + 1);
     }
   }, []);
 
@@ -28,9 +30,22 @@ export default function CardsList() {
     instanceAxios
       .get(`/list?size=3&page=${pageTracker}`)
       .then((res) => {
-        pageTracker++;
-        setList(res.data.result);
+        setPageTracker(pageTracker + 1);
+
+        setList((prevList) => [...prevList, ...res.data.result]);
         setTotalCards(res.data.total);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function logOutHandler() {
+    instanceAxios
+      .post(`/logout`)
+      .then((res) => {
+        window.localStorage.clear();
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -41,25 +56,42 @@ export default function CardsList() {
       <div className="header">
         <div className="popover">
           <button className="popover-button">Admin</button>
-          <div className="popover-content">
+          <div
+            onClick={() => {
+              logOutHandler();
+            }}
+            className="popover-content"
+          >
             <span>Logout</span>
 
             <div className="popover-arrow bottom"></div>
           </div>
         </div>
         <div className="details">
-          <span>Viewed: {list?.length }</span>
+          <span>Viewed: {list?.length}</span>
           <span>Total: {totalCards}</span>
         </div>
       </div>
       <div className="main">
-        {list?.map((card,index)=>{
-          return (
-            <div key={index} className="item">
-              <Card id={index}/>
-            </div>
-          )
-        })}
+        <div className="list">
+          {list?.map((card, index) => {
+            return (
+              <div key={index} className="item">
+                <Card id={index} />
+              </div>
+            );
+          })}
+        </div>
+        {totalCards === list.length ? null : (
+          <button
+            onClick={() => {
+              get3Card();
+            }}
+            className="load-more"
+          >
+            Load more
+          </button>
+        )}
       </div>
     </div>
   );

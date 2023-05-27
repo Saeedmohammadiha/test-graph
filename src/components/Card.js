@@ -4,7 +4,6 @@ import airplane from "../assets/airplane.png";
 
 const Card = (props) => {
   const [isChecked, setIsChecked] = useState(false);
-console.log(props);
   const handleInputChange = (event) => {
     setIsChecked(event.target.checked);
   };
@@ -20,12 +19,16 @@ console.log(props);
           onChange={handleInputChange}
         />
 
-        <label className={styles["card"]} for={props.id}>
+        <label className={styles["card"]} htmlFor={props.id}>
           <div className={`${styles["front"]} ${styles["face"]}`}>
             <div className={styles["ribbon"]}>Economy</div>
             <div className={styles["front-inner"]}>
               <div className={styles["description"]}>
-                <div className={styles["title"]}>Lufthansa *</div>
+                <div className={styles["title"]}>
+                  <div className="logo" style={{width:'50px', height:'50px'}}>
+                    <img src="#" alt="logo" />
+                  </div>
+                  Lufthansa </div>
                 <div className={styles["detail"]}>
                   <span>benaluru</span>
                   <span>6:20</span>
