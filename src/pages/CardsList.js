@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import "./cardslist.scss";
+import styles from "./cardslist.module.scss";
 import { instanceAxios } from "../utils/instanceAxios";
 import { useNavigate } from "react-router-dom";
 export default function CardsList() {
@@ -52,32 +52,32 @@ export default function CardsList() {
       });
   }
   return (
-    <div className="container">
-      <div className="header">
-        <div className="popover">
-          <button className="popover-button">Admin</button>
+    <div className={styles["container"]}>
+      <div className={styles["header"]}>
+        <div className={styles["popover"]}>
+          <button className={styles["popover-button"]}>Admin</button>
           <div
             onClick={() => {
               logOutHandler();
             }}
-            className="popover-content"
+            className={styles["popover-content"]}
           >
             <span>Logout</span>
 
-            <div className="popover-arrow bottom"></div>
+            <div className={`${styles['popover-arrow']} ${styles['bottom']}`}></div>
           </div>
         </div>
-        <div className="details">
+        <div className={styles["details"]}>
           <span>Viewed: {list?.length}</span>
           <span>Total: {totalCards}</span>
         </div>
       </div>
-      <div className="main">
-        <div className="list">
+      <div className={styles["main"]}>
+        <div className={styles["list"]}>
           {list?.map((card, index) => {
             return (
-              <div key={index} className="item">
-                <Card id={index} />
+              <div key={index} className={styles["item"]}>
+                <Card id={index} data={card} />
               </div>
             );
           })}
@@ -87,7 +87,7 @@ export default function CardsList() {
             onClick={() => {
               get3Card();
             }}
-            className="load-more"
+            className={styles["load-more"]}
           >
             Load more
           </button>
