@@ -1,62 +1,103 @@
-// import React from "react";
-// import  './card.scss'
-// export default function Card(props) {
-//   return (
-//     // <div className={styles['card-container']}>
-//     //   <div className={styles["static-card"]}>static</div>
-//     //   <div class={styles["flip-card"]}>
-//     //     <div class={styles["flip-card-inner"]}>
-//     //       <div class={styles["flip-card-front"]}>front</div>
-//     //       <div class={styles["flip-card-back"]}>back</div>
-//     //     </div>
-//     //   </div>
-//     // </div>
-//     <div className="postal-card">
-//     <div className="cover">
-//        Content for the cover
-//       <div className="content">
-//         <h2>Cover</h2>
-//         <p>This is the content for the cover of the postal card.</p>
-//       </div>
-//     </div>
-//     <div className="inner-content">
-//       <div className="page top-page">
-//          Content for the top page
-//         <h2>Top Page</h2>
-//         <p>This is the content for the top page of the postal card.</p>
-//       </div>
-//       <div className="page bottom-page">
-//          Content for the bottom page
-//         <h2>Bottom Page</h2>
-//         <p>This is the content for the bottom page of the postal card.</p>
-//       </div>
-//     </div>
-//   </div>
-
-//   );
-// }
-
 import React, { useState } from "react";
-import "./card.scss"; // Create a CSS file to style the components
+import styles from "./card.module.scss";
+import airplane from "../assets/airplane.png";
 
-const Card = () => {
-
-
-
+const Card = (props) => {
+  const [isChecked, setIsChecked] = useState(false);
+console.log(props);
+  const handleInputChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
   return (
-    <div className="card-container">
-        <div className="ribbon" >ECONOMY</div>
-      <input
-        type="checkbox"
-        id="card-toggle"
-        className="card-toggle"
-        value="selected"
-      />
-      <label className="card" for="card-toggle">
-        <div className="front face">test1</div>
-        <div className="inner-bottom face">test left</div>
-        <div className="inner-top face">test right</div>
-      </label>
+    <div className={isChecked?`${styles["height"]} ${styles["checked"]}`: styles["height"]}>
+      <div className={styles["card-container"]}>
+        <input
+          type="checkbox"
+          id={props.id}
+          className={styles["card-toggle"]}
+          value="selected"
+          checked={isChecked}
+          onChange={handleInputChange}
+        />
+
+        <label className={styles["card"]} for={props.id}>
+          <div className={`${styles["front"]} ${styles["face"]}`}>
+            <div className={styles["ribbon"]}>Economy</div>
+            <div className={styles["front-inner"]}>
+              <div className={styles["description"]}>
+                <div className={styles["title"]}>Lufthansa *</div>
+                <div className={styles["detail"]}>
+                  <span>benaluru</span>
+                  <span>6:20</span>
+                  <span>jun 12</span>
+                </div>
+                <div className={styles["plane-icon"]}>
+                  <img alt="airplane" src={airplane} />
+                </div>
+                <div className={styles["detail"]}>
+                  <span>new delhi</span>
+                  <span>5:45</span>
+                  <span>jun 12</span>
+                </div>
+              </div>
+              <div className={styles["cost"]}>$100</div>
+            </div>
+          </div>
+          <div className={`${styles["inner-bottom"]} ${styles["face"]}`}>
+            <div className={styles["inner-boottom-rotate"]}>
+              <div className={styles["bottom-description"]}>
+                <div className={styles["row"]}>
+                  <div className={styles["flex"]}>
+                    <span>6:20 - 8:45</span>
+                    <span>Flight Time</span>
+                  </div>
+                  <div className={styles["flex"]}>
+                    <span>2h 25 min</span>
+                    <span>Duration</span>
+                  </div>
+                  <div className={styles["flex"]}>
+                    <span>5:35</span>
+                    <span>Boarding</span>
+                  </div>
+                </div>
+                <div className={styles["row"]}>
+                  <div className={styles["flex"]}>
+                    <span>No</span>
+                    <span>Transfer</span>
+                  </div>
+                  <div className={styles["flex"]}>
+                    <span>8</span>
+                    <span>Gate</span>
+                  </div>
+                  <div className={styles["flex"]}>
+                    <span>20A</span>
+                    <span>Seat</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`${styles["inner-top"]} ${styles["face"]}`}>
+            <div className={styles["ribbon"]}>Economy</div>
+            <div className={styles["top-description"]}>
+              <div className={styles["from"]}>
+                <span>From</span>
+                <span>BLR</span>
+                <span>kempegowda International</span>
+              </div>
+              <div className={styles["icon"]}>
+                <img src={airplane} alt="airplane" />
+                <span className={styles["cost"]}>$100</span>
+              </div>
+              <div className={styles["to"]}>
+                <span>To</span>
+                <span>DEL</span>
+                <span>Indira Gandhi International</span>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
     </div>
   );
 };

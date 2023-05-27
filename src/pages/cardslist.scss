@@ -1,0 +1,64 @@
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+
+  .details {
+    @include center;
+    justify-content: space-between;
+  }
+}
+
+.popover {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  margin: 20px 0;
+  button {
+    border: none;
+    background-color: rgb(182, 180, 180);
+    color: #fff;
+    width: 65px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+    -webkit-box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+  }
+}
+
+.popover-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+  -webkit-box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+  -moz-box-shadow: -2px 2px 31px -9px rgba(0, 0, 0, 0.64);
+  padding: 10px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.popover:hover .popover-content {
+  display: block;
+}
+
+.main {
+  @include center;
+  flex-wrap: wrap;
+  align-items: baseline;
+  .item {
+    min-width: 400px;
+    margin: 20px;
+  }
+}

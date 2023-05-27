@@ -33,7 +33,7 @@ export default function Login() {
       })
       .then((response) => {
         if (response.data.result === "success") {
-          window.localStorage.setItem("token", response.token);
+          window.localStorage.setItem("token", response.data.token);
           navigate("/list");
         } else {
           setTitlePopup(response.data.result);
